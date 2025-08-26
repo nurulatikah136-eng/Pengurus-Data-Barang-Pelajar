@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ms-MY">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borang Penghantaran Balik Barang</title>
+    <style>
+        /* === Font & Base === */
+        body {
+            background: #fbe3eb;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* === Container === */
+        .container {
+            max-width: 430px;
+            margin: 40px auto 0;
+            background: #fff7fb;
+            border: 3.5px solid #801336;
+            border-radius: 22px;
+            padding: 28px 18px;
+            box-shadow: 0 4px 18px #cfa3b9;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* === Heading === */
+        h1 {
+            text-align: center;
+            color: #801336;
+        }
+        
+        p {
+            text-align: center;
+            color: #5e0f27;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        /* === Labels & Inputs === */
+        label {
+            color: #801336;
+            font-weight: bold;
+            display: block;
+            margin-top: 15px; /* Increased margin for better spacing */
+            margin-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select,
+        textarea {
+            width: 100%;
+            padding: 10px; /* Slightly increased padding */
+            border: 1.5px solid #cfa3b9;
+            border-radius: 9px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Ensures padding doesn't increase width */
+            font-size: 1em; /* Ensure consistent font size */
+            color: #333; /* Default text color */
+        }
+
+        /* === Focus Style === */
+        .form-control:focus,
+        .form-select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #801336;
+            box-shadow: 0 0 6px rgba(128, 19, 54, 0.3);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+
+        /* === Buttons === */
+        .btn-maroon {
+            background: #801336;
+            color: #fff7fb;
+            border: none;
+            border-radius: 10px;
+            padding: 12px; /* Slightly increased padding */
+            width: 100%;
+            margin-top: 25px; /* Increased margin-top for separation */
+            font-size: 1em; /* Consistent font size */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-maroon:hover:not(:disabled) {
+            background-color: #5e0f27;
+            transform: scale(1.02);
+        }
+        
+        .btn-maroon:disabled {
+            background-color: #999;
+            cursor: wait;
+        }
+
+        .btn-upload { /* Styling for the file upload button */
+            background: #cfa3b9;
+            color: #801336;
+            border: none;
+            border-radius: 7px;
+            padding: 7px;
+            width: 100%;
+            margin-top: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-align: center;
+            display: block; /* Ensure it takes full width */
+        }
+        
+        .btn-upload:hover {
+            background-color: #e2b9cc;
+            transform: scale(1.02);
+        }
+
+        .btn-theme {
+            background: #801336;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 20px auto 0; /* Adjusted margin for better placement */
+            display: block;
+            cursor: pointer;
+            font-size: 15px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .btn-theme:hover {
+            background-color: #5e0f27;
+            transform: scale(1.02);
+        }
+
+        /* === Image Preview === */
+        #imagePreview {
+            display: block;
+            margin: 10px auto;
+            max-width: 90%;
+            max-height: 200px;
+            object-fit: contain; /* Ensure the image fits within the bounds */
+            border: 2px dashed #801336;
+            border-radius: 10px;
+        }
+
+
+        /* === Dark Mode === */
+        body.dark {
+            background: #1e1e1e;
+            color: #f0f0f0;
+        }
+
+        body.dark .container {
+            background: #2c2c2c;
+            border-color: #ff99cc;
+            box-shadow: 0 4px 18px #000;
+        }
+
+        body.dark h1,
+        body.dark p {
+            color: #ff99cc;
+        }
+
+        body.dark label {
+            color: #ff99cc;
+        }
+
+        body.dark .form-control,
+        body.dark .form-select,
+        body.dark textarea {
+            background: #3a3a3a;
+            color: #f0f0f0;
+            border-color: #ff99cc;
+        }
+        
+        body.dark .form-control:focus,
+        body.dark .form-select:focus,
+        body.dark textarea:focus {
+            box-shadow: 0 0 6px rgba(255, 153, 204, 0.5);
+        }
+
+        body.dark .btn-maroon {
+            background: #ff99cc;
+            color: #1e1e1e;
+        }
+        body.dark .btn-maroon:hover:not(:disabled) {
+            background-color: #ff70b8;
+        }
+
+        body.dark .btn-upload {
+            background: #e2b9cc;
+            color: #1e1e1e;
+        }
+        body.dark .btn-upload:hover {
+            background-color: #ff99cc;
+        }
+
+        body.dark .btn-theme {
+            background: #ff99cc;
+            color: #1e1e1e;
+        }
+        body.dark .btn-theme:hover {
+            background-color: #ff70b8;
+        }
+
+        body.dark #imagePreview {
+            border-color: #ff99cc;
+        }
+
+
+        /* === Responsive Mobile === */
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 12px;
+                border-radius: 16px;
+                margin: 20px auto 0;
+            }
+
+            .form-control,
+            .form-select,
+            textarea {
+                padding: 10px;
+                font-size: 1em;
+            }
+
+            .btn-maroon,
+            .btn-upload,
+            .btn-theme {
+                font-size: 1em;
+                padding: 12px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Borang Penghantaran Balik Barang</h1>
+            <p>Sila isi borang ini untuk merekod penghantaran balik barang pelajar.</p>
+        </div>
+
+        <form id="returnForm">
+            <div class="form-group">
+                <label for="namaPenuh">Nama Penuh</label>
+                <input type="text" id="namaPenuh" name="namaPenuh" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="noTelefon">No. Telefon</label>
+                <input type="text" id="noTelefon" name="noTelefon" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nomborMatriks">Nombor Matriks</label>
+                <input type="text" id="nomborMatriks" name="nomborMatriks" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="universiti">Universiti</label>
+                <select id="universiti" name="universiti" class="form-select" required>
+                    <option value="">-- Pilih --</option>
+                    <option value="UNIMAS">UNIMAS</option>
+                    <option value="UiTM">UiTM</option>
+                    <option value="Lain-lain">Lain-lain</option>
+                </select>
+            </div>
+
+            <!-- Medan "Nama Barang" telah dibuang -->
+
+            <div class="form-group">
+                <label for="lokasiPenghantaran">Lokasi Penghantaran</label>
+                <input type="text" id="lokasiPenghantaran" name="lokasiPenghantaran" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tarikhPenghantaran">Tarikh Penghantaran</label>
+                <input type="date" id="tarikhPenghantaran" name="tarikhPenghantaran" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="notaTambahan">Nota Tambahan (jika ada)</label>
+                <textarea id="notaTambahan" name="notaTambahan" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="gambarBarangInput">Gambar Barang</label>
+                <label for="gambarBarangInput" class="btn-upload">📷 Tambah Gambar</label>
+                <input type="file" id="gambarBarangInput" name="gambarBarang" accept="image/*" style="display:none;">
+                <img id="imagePreview" src="#" alt="Pratonton Gambar Barang" style="display:none;">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" id="submitBtn" class="btn-maroon">Hantar</button>
+            </div>
+        </form>
+    </div>
+
+    <button id="themeToggle" class="btn-theme">Tukar Tema (Light/Dark)</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('returnForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const themeToggleBtn = document.getElementById('themeToggle');
+            const body = document.body;
+            const gambarBarangInput = document.getElementById('gambarBarangInput');
+            const imagePreview = document.getElementById('imagePreview');
+
+            // Load theme preference from localStorage
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                body.classList.add(savedTheme);
+            }
+
+            // Theme toggle functionality
+            themeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                if (body.classList.contains('dark')) {
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    localStorage.removeItem('theme'); // Remove 'dark' to default to light
+                }
+            });
+
+            // Helper to convert file to Base64
+            const toBase64 = file => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+
+            // Image preview functionality
+            gambarBarangInput.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files[0]) {
+                    const file = e.target.files[0];
+                    if (file.size > 2 * 1024 * 1024) { // 2MB limit
+                        displayMessage('Saiz gambar melebihi 2MB. Sila pilih gambar yang lebih kecil.', 'error');
+                        gambarBarangInput.value = ''; // Clear the input
+                        imagePreview.style.display = 'none';
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Menghantar...';
+
+                try {
+                    const formData = new FormData(form);
+                    
+                    // Gantikan ini dengan URL Google Apps Script anda yang paling terkini
+                    const googleSheetUrl = 'https://script.google.com/macros/s/AKfycbwJ7v6Wds_RUv4FzpLlTg-71gxNhuRUtx6MD-OXuDL1Tpk-LUNkMX9i_fBPSXgs35kNmg/exec';
+                    
+                    // Convert FormData to URLSearchParams
+                    const params = new URLSearchParams();
+                    for (const [key, value] of formData.entries()) {
+                        // Handle file input: convert to Base64 if it's an image file
+                        if (key === 'gambarBarang' && value instanceof File) {
+                            if (value) {
+                                const base64Image = await toBase64(value);
+                                params.append('gambarBarang', base64Image);
+                            } else {
+                                params.append('gambarBarang', ''); // Send empty if no image selected
+                            }
+                        } else {
+                            params.append(key, value);
+                        }
+                    }
+                    params.append("secret", "vi-secure-123"); 
+
+                    const response = await fetch(googleSheetUrl, {
+                        method: 'POST',
+                        body: params
+                    });
+
+                    const result = await response.json();
+                    
+                    if (result.status === 'success') {
+                        displayMessage(result.message, 'success');
+                        form.reset();
+                        imagePreview.style.display = 'none'; // Hide preview after reset
+                    } else {
+                        displayMessage('Ralat: ' + result.message, 'error');
+                        console.error('Apps Script Error:', result.message);
+                    }
+
+                } catch (error) {
+                    console.error('Ralat berlaku semasa fetch:', error);
+                    displayMessage('Gagal merekod data. Sila semak sambungan internet anda atau cuba lagi. Ralat: ' + error.message, 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Hantar';
+                }
+            });
+
+            // Custom message display function (replaces alert)
+            function displayMessage(message, type) {
+                const messageBox = document.createElement('div');
+                messageBox.textContent = message;
+                messageBox.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 15px 25px;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    color: white;
+                    z-index: 1000;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                    animation: fadeOut 4s forwards;
+                    opacity: 1;
+                `;
+
+                if (type === 'success') {
+                    messageBox.style.backgroundColor = '#198754'; /* Green */
+                } else if (type === 'error') {
+                    messageBox.style.backgroundColor = '#dc3545'; /* Red */
+                }
+
+                document.body.appendChild(messageBox);
+
+                // Define fadeOut animation dynamically
+                const styleSheet = document.styleSheets[0];
+                styleSheet.insertRule(`
+                    @keyframes fadeOut {
+                        0% { opacity: 1; }
+                        90% { opacity: 1; }
+                        100% { opacity: 0; display: none; }
+                    }
+                `, styleSheet.cssRules.length);
+
+                setTimeout(() => {
+                    messageBox.remove();
+                }, 4000); // Remove after 4 seconds
+            }
+        });
+    </script>
+</body>
+</html>
